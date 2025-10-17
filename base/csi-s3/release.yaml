@@ -10,17 +10,14 @@ spec:
       chart: csi-s3
       sourceRef:
         kind: HelmRepository
-        name: yandex-s3
+        name: csi-s3
         namespace: flux-system
       interval: 1m
   releaseName: csi-s3
   targetNamespace: kube-system
   values:
-    secret:
-      create: false
-      name: csi-s3-secret 
-    storageClass:
-      create: true
-      name: csi-s3
-      singleBucket: "c2df1994-hq-default-csi"
-      mounter: s3fs
+    s3:
+      endpointUrl: https://s3.twcstorage.ru
+      region: ru-1
+    s3CredentialSecret:
+      name: csi-s3-secret

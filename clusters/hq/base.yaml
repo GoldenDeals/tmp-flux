@@ -1,0 +1,31 @@
+---
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: OCIRepository
+metadata:
+  name: base
+  namespace: flux-system
+spec:
+  interval: 5m0s
+  url: oci://ghcr.io/goldendeals/base
+  ref:
+    tag: deploy
+  secretRef:
+    name: github-auth
+  
+---
+
+apiVersion: kustomize.toolkit.fluxcd.io/v1
+kind: Kustomization
+metadata:
+  name: base
+  namespace: flux-system
+spec:
+  interval: 5m
+  sourceRef:
+    kind: OCIRepository
+    name: base
+  path: .
+  prune: true
+  force: true
+  dependsOn:
+    - name: namespaces

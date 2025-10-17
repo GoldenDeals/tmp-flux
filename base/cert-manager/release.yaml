@@ -1,0 +1,108 @@
+apiVersion: helm.toolkit.fluxcd.io/v2beta1
+kind: HelmRelease
+metadata:
+  name: cert-manager
+  namespace: flux-system
+spec:
+  interval: 5m
+  chart:
+    spec:
+      chart: cert-manager
+      version: "v1.19.0"
+      sourceRef:
+        kind: HelmRepository
+        name: jetstack
+        namespace: flux-system
+      interval: 1m
+  releaseName: cert-manager
+  targetNamespace: cert-manager
+  values:
+    installCRDs: true
+    
+    global:
+      leaderElection:
+        namespace: cert-manager
+    
+    replicaCount: 1
+    
+    resources:
+      requests:
+        memory: "128Mi"
+        cpu: "100m"
+      limits:
+        memory: "256Mi"
+        cpu: "200m"
+    
+    nodeSelector: {}
+    tolerations: []
+    affinity: {}
+    
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 1000
+      runAsGroup: 1000
+      fsGroup: 1000
+    
+    serviceAccount:
+      create: true
+      annotations: {}
+    
+    webhook:
+      replicaCount: 1
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "50m"
+        limits:
+          memory: "128Mi"
+          cpu: "100m"
+      
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+    
+    cainjector:
+      replicaCount: 1
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "50m"
+        limits:
+          memory: "128Mi"
+          cpu: "100m"
+      
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+    
+    startupapicheck:
+      enabled: true
+      replicaCount: 1
+      resources:
+        requests:
+          memory: "64Mi"
+          cpu: "50m"
+        limits:
+          memory: "128Mi"
+          cpu: "100m"
+      
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+    
+    metrics:
+      enabled: true
+      serviceMonitor:
+        enabled: true
+        namespace: cert-manager
+        interval: 30s
+        scrapeTimeout: 10s
+        labels:
+          app: cert-manager
+          release: prometheus

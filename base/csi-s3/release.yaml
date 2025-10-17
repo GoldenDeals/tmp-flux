@@ -7,10 +7,10 @@ spec:
   interval: 5m
   chart:
     spec:
-      chart: csi-s3
+      chart: aws-mountpoint-s3-csi-driver
       sourceRef:
         kind: HelmRepository
-        name: csi-s3
+        name: anti-sanctions
         namespace: flux-system
       interval: 1m
   releaseName: csi-s3

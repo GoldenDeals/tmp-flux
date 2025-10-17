@@ -22,3 +22,4 @@ spec:
     storageClass:
       create: true
       name: csi-s3
+      singleBucket: "c2df1994-hq-default-csi"

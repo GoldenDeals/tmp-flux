@@ -35,5 +35,5 @@ spec:
   path: ./clusters/hq
   prune: true
   sourceRef:
-    kind: GitRepository
+    kind: OCIRepository
     name: flux-system

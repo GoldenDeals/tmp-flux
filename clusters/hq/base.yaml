@@ -33,4 +33,5 @@ spec:
     substitute:
       default_gateway: main-gateway
       cluster_domain: hq.gdllc.dev
-      cluster_public_domain: goldendeals.ru
+      internal_domain: gdllc.dev
+      public_domain: goldendeals.ru

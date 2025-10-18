@@ -61,7 +61,7 @@ metadata:
   namespace: whoami
 spec:
   hosts:
-  - registry.${cluster_domain}
+  - registry.${internal_domain}
   gateways:
   - istio-system/${default_gateway}
   http:

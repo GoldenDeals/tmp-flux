@@ -7,7 +7,7 @@ spec:
   hosts:
   - "vault.${cluster_domain}"
   gateways:
-  - istio-system/${default_gateway}
+  - istio-system/${gateway_name}
   http:
   - route:
     - destination:

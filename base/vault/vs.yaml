@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: vault-virtualservice
+  namespace: vault
+spec:
+  hosts:
+  - "vault.${cluster_domain}"
+  gateways:
+  - istio-system/${default_gateway}
+  http:
+  - route:
+    - destination:
+        host: vault  
+        port:
+          number: 8200

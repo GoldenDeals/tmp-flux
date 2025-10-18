@@ -1,22 +1,23 @@
 apiVersion: helm.toolkit.fluxcd.io/v2
 kind: HelmRelease
 metadata:
-  name: cert-manager
+  name: istio-base
   namespace: flux-system
 spec:
   chart:
     spec:
-      chart: cert-manager
+      chart: base
       sourceRef:
         kind: HelmRepository
-        name: jetstack
+        name: istio
         namespace: flux-system
   install:
     crds: Create
   upgrade:
     crds: CreateReplace
   interval: 5m0s
-  releaseName: cert-manager
-  targetNamespace: cert-manager
+  releaseName: istio-base
+  targetNamespace: istio-system
   values:
-    installCRDs: true
+    global:
+      istioNamespace: istio-system

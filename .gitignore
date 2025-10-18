@@ -1,2 +1,7 @@
 github-auth.yaml
 csi-s3-secret.yaml
+hq.goldendeals.ru.cert.yaml
+hq.gdllc.ru.cert.yaml
+hq.gdllc.dev.cert.yaml
+ca.cert.yaml
+

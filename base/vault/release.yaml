@@ -17,38 +17,80 @@ spec:
   targetNamespace: vault
   values:
     global:
-      enabled: true
-      namespace: vault 
-    injector:
-      enabled: true
-      metrics:  
-        enabled: true
-      resources:
-        requests:
-          memory: '256Mi'
-          cpu: '250m'
-        limits:
-          memory: '256Mi'
-          cpu: '250m'
-    server:
-      resources:
-        requests:
-          memory: '2Gi'
-        limits:
-          memory: '8Gi'
-      dataStorage:
-        size: '5Gi'
-        storageClass: 'csi-s3'
-      dev: 
-        enabled: false
-      standalone:
-        enabled: false
-      ha: 
-        enabled: true
-        replicas: 2
-      ui:
-        enabled: true
+  enabled: true
 
-      
+injector:
+  enabled: true
 
+server:
+  enabled: true
+  ha:
+    enabled: true
+    replicas: 3  # Minimum for Raft quorum in production.
+    raft:
+      enabled: true  # Raft for HA storage.
+  dataStorage:
+    enabled: true
+    size: 10Gi  # Persistent volume for Vault data.
+  auditStorage:
+    enabled: true
+    size: 10Gi  # Audit logs for compliance.
+  resources:
+    requests:
+      memory: 256Mi
+      cpu: 250m
+    limits:
+      memory: 2Gi
+      cpu: 2000m  # Resource limits for stability.
+  volumes:
+    - name: tls
+      secret:
+        secretName: vault-tls  # Existing secret with server.crt, server.key, and optionally ca.crt.
+    - name: ca
+      secret:
+        secretName: my-ca  # Secret with ca.crt for CA certificate.
+  volumeMounts:
+    - name: tls
+      mountPath: /vault/tls
+      readOnly: true
+    - name: ca
+      mountPath: /vault/ca
+      readOnly: true
+  config: |
+    ui = true
 
+    listener "tcp" {
+      address = "[::]:8200"
+      cluster_address = "[::]:8201"
+      tls_disable = false
+    }
+
+    storage "raft" {
+      path = "/vault/data"
+    }
+
+    # Example CA usage (e.g., for auto-unseal or external auth).
+    # seal "awskms" {
+    #   region = "us-east-1"
+    #   kms_key_id = "your-key-id"
+    #   tls_ca_cert = "/vault/ca/ca.crt"
+    # }
+
+    telemetry {
+      dogstatsd_addr = "localhost:8125"
+      disable_hostname = true
+    }
+
+ui:
+  enabled: true
+  serviceType: ClusterIP
+
+# Disable standard Ingress for Istio.
+ingress:
+  enabled: false
+
+# Istio-specific configuration.
+extraObjects:
+
+csi:
+  enabled: false  # Disabled for simplicity.

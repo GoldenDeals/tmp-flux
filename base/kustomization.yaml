@@ -3,3 +3,4 @@ kind: Kustomization
 resources:
   - anti-sanctions-repo.yaml
   - cert-manager/
+  - istio/

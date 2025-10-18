@@ -11,6 +11,7 @@ spec:
         kind: HelmRepository
         name: istio
         namespace: flux-system
+      version: "1.27.2"
   interval: 5m0s
   releaseName: istiod
   targetNamespace: istio-system

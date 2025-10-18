@@ -31,6 +31,6 @@ spec:
     - name: namespaces
   postBuild:
     substitute:
-      gateway_name: main-gateway
+      default_gateway: main-gateway
       cluster_domain: hq.gdllc.dev
       cluster_public_domain: goldendeals.ru

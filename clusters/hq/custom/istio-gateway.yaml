@@ -1,50 +1,50 @@
-apiVersion: networking.istio.io/v1
-kind: Gateway
-metadata:
-  name: main-gateway
-  namespace: istio-system
-spec:
-  selector:
-    istio: ingressgateway
-  servers:
-  - port:
-      number: 80
-      name: http
-      protocol: HTTP
-    hosts:
-      - "*"
-    tls:
-      httpsRedirect: true
-  - port:
-      number: 443
-      name: https-hq-gdllc
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: base-hq-gdllc-cert-secret
-    hosts:
-    - vault.hq.gdllc.dev
-    - prometheus.hq.gdllc.dev
-    - grafana.hq.gdllc.dev
-  - port:
-      number: 443
-      name: https-gdllc
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: base-gdllc-cert-secret
-    hosts:
-    - registry.gdllc.dev
-    - ns.gdllc.dev
-    - ca.gdllc.dev
-    - git.gdllc.dev
-  - port:
-      number: 443
-      name: https-goldendeals
-      protocol: HTTPS
-    tls:
-      mode: SIMPLE
-      credentialName: base-goldendeals-cert-secret
-    hosts:
-    - goldendeals.ru
-    - www.goldendeals.ru
+# apiVersion: networking.istio.io/v1
+# kind: Gateway
+# metadata:
+#   name: main-gateway
+#   namespace: istio-system
+# spec:
+#   selector:
+#     istio: ingressgateway
+#   servers:
+#   - port:
+#       number: 80
+#       name: http
+#       protocol: HTTP
+#     hosts:
+#       - "*"
+#     tls:
+#       httpsRedirect: true
+#   - port:
+#       number: 443
+#       name: https-hq-gdllc
+#       protocol: HTTPS
+#     tls:
+#       mode: SIMPLE
+#       credentialName: base-hq-gdllc-cert-secret
+#     hosts:
+#     - vault.hq.gdllc.dev
+#     - prometheus.hq.gdllc.dev
+#     - grafana.hq.gdllc.dev
+#   - port:
+#       number: 443
+#       name: https-gdllc
+#       protocol: HTTPS
+#     tls:
+#       mode: SIMPLE
+#       credentialName: base-gdllc-cert-secret
+#     hosts:
+#     - registry.gdllc.dev
+#     - ns.gdllc.dev
+#     - ca.gdllc.dev
+#     - git.gdllc.dev
+#   - port:
+#       number: 443
+#       name: https-goldendeals
+#       protocol: HTTPS
+#     tls:
+#       mode: SIMPLE
+#       credentialName: base-goldendeals-cert-secret
+#     hosts:
+#     - goldendeals.ru
+#     - www.goldendeals.ru

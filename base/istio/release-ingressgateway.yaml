@@ -16,9 +16,20 @@ spec:
   targetNamespace: istio-system
   values:
     gateways:
-      istio-ingressgateway:
-        name: istio-ingressgateway
-        namespace: istio-system
-        labels:
-          app: istio-ingressgateway
-          istio: ingressgateway
+     istio-ingressgateway:
+       name: istio-ingressgateway
+       namespace: istio-system
+       labels:
+         app: istio-ingressgateway
+         istio: ingressgateway
+       service:
+         type: LoadBalancer
+         ports:
+         - port: 80
+           targetPort: 8080
+           protocol: TCP
+           name: http
+         - port: 443
+           targetPort: 8443
+           protocol: TCP
+           name: https

@@ -61,7 +61,7 @@ metadata:
   namespace: istio-system
 spec:
   hosts:
-  - registry.${internal_domain}
+  - ${internal_domain}
   gateways:
   - istio-system/${default_gateway}
   http:

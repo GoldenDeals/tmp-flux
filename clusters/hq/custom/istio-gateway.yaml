@@ -12,5 +12,5 @@ spec:
       name: http
       protocol: HTTP
     hosts:
-      - "registry.gdllc.dev"
+      - "gdllc.dev"
 

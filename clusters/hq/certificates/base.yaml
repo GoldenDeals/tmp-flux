@@ -28,7 +28,7 @@ metadata:
   namespace: istio-system
 spec:
   secretName: base-hq-gdllc-cert-secret
-  duration: 2160h  
+  duration: 2160h
   renewBefore: 360h  
   privateKey:
     algorithm: RSA
@@ -36,6 +36,7 @@ spec:
   dnsNames:
   - vault.hq.gdllc.dev
   - prometheus.hq.gdllc.dev
+  - grafana.hq.gdllc.dev
   issuerRef:
     name: letsencrypt-staging
     kind: ClusterIssuer

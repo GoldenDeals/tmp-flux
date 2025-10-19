@@ -34,4 +34,4 @@ spec:
       default_gateway: main-gateway
       cluster_domain: hq.gdllc.dev
       internal_domain: gdllc.dev
-      public_domain: goldendeals.ru
+      public_domain: gdllc.ru

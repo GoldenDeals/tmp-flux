@@ -5,4 +5,3 @@ resources:
   - release-base.yaml
   - release-istiod.yaml
   - release-ingressgateway.yaml
-  - whoami-check.yaml

@@ -5,4 +5,3 @@ resources:
   - csi-s3/
   - cert-manager/
   - istio/
-  - vault/

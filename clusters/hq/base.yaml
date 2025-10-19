@@ -29,6 +29,7 @@ spec:
   force: true
   dependsOn:
     - name: namespaces
+    - name: crds
   postBuild:
     substitute:
       default_gateway: main-gateway
